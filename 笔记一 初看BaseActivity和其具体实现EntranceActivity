@@ -1,0 +1,50 @@
+Coding Android客户端（versionCode92 Name3.2.5）源码学习笔记
+1.EntranceActivity 默认启动界面
+	1.1继承关系 EntranceActivity--BaseActivity--UmengActivity
+		1.1.1 UmengActivity接入UmengSdk，加入友盟统计功能
+		1.1.2 BaseActivity Activity模板
+				1.1.2.1 SingleToast类 Toast的管理工具类，除了构造方法外，还有四个方法，控制Toast显示的不同位置
+				1.1.2.2 NetworkImpl 网络请求工具类
+					1.1.2.3 loadData 方法分析
+					    	public void loadData(String url, RequestParams params, final String tag, final int dataPos, final Object data, final Request type)
+					    	url：请求地址
+					    	params:参数
+					    	其他参数尚未搞懂什么意思==
+					    	进入函数时首先保证url以http开头，
+					    	if (!url.startsWith("http")) {
+					            url = Global.HOST + url;
+					        }
+					        实用，不判断使用协议，网络请求会报错。
+					        if (mUpdateing.containsKey(tag) && mUpdateing.get(tag)) {
+					            Log.d("", "url#" + (params == null ? "get " : "post ") + url);
+					            return;
+					        }
+
+					        mUpdateing.put(tag, true);
+					        尚未看懂 ==
+	        	1.1.2.3 源码分析
+	        		onCreate函数中初始化了吐司工具类、网络请求工具类、进度条小菊花的设置。
+	        		UnreadNotify.update(this);暂时未懂该功能==
+	        		容易遗漏的地方是onDestory中，当progressDialog不为空时，需要dismiss并置为null
+	        		getNextPagework
+	        		postNetwork
+	        		getNetwork
+	        		putNetwork
+	        		deleteNetwork
+	        		这五个函数调网络接口，暂时未看==
+	    1.1.3 EntranceActivity 欢迎页面 BaseActivity的具体实现之一
+	    	UserObject猜测为储存用户的资料，用于请求接口时的校验，尚未验证==
+	    	首页动画，随机展示背景图中的任意一幅图，在LoginBackGround工具类中，首先读取所有背景，生成随机数，展示第n幅图	
+	    	overridePendingTransition(R.anim.scroll_in, R.anim.scroll_out); activity之间的切换动画，从第一个参数是第二个activity进入的动画，第二个参数是第一个activity退出的动画，R.anim.scroll_in代码示例：
+	    	<set xmlns:android="http://schemas.android.com/apk/res/android"
+		    android:duration="700">
+			    <translate
+			        android:duration="700"
+			        android:fromXDelta="100%p"
+			        android:toXDelta="0%p" />
+			    <!--<alpha-->
+			    <!--android:duration="700"-->
+			    <!--android:fromAlpha="1.0"-->
+			    <!--android:toAlpha="1.0" />-->
+			</set>
+			activity从右向左进入屏幕
