@@ -71,7 +71,8 @@
 <li>              &lt;!--android:fromAlpha="1.0"--&gt;</li>
 <li>              &lt;!--android:toAlpha="1.0" /&gt;--&gt;</li>
 <li>          </li>
-<li><pre><code>      activity从右向左进入屏幕
+<li>
+<pre><code>      activity从右向左进入屏幕
         1.1.4 LoginActivity 登录界面
     进入界面，根据上文猜测的某个Key，判断是否需要验证码，并在downloadValifyPhoto函数中下载验证码
 
@@ -82,7 +83,14 @@
                     2.修改style.xml中的样式，继承DarkActionBar
                     3.在style.xml中的style中增加属性和对应的值，&lt;item name="windowActionBar"&gt;false&lt;/item&gt;，&lt;item name="windowNoTitle"&gt;true&lt;/item&gt;，另有一个属性为colorPrimary，值为Toolbar的背景颜色。在sdk&gt;21时，另有新增的api可以修改状态栏颜色，属性名为colorPrimaryDark，值为颜色。
                     4.在Java代码中，首先绑定ToolBar，然后重写onCreateOptionsMenu方法，绑定menu.xml文件，实例化一个Toolbar.OnMenuItemClickListener对象，设置菜单的监听事件。
-</code></pre></li>
+</code></pre>
+
+<p>SwipeRefreshLayout:google官方的下拉刷新库，使用方法
+                        1.布局文件中注意使用v4包
+                        2.swipeRefreshLayout是一个ViewGroup，其子元素控件目前发现只能是listview，gridview（RecyclerView尚未尝试），其他控件，如LinearLayout,RelativeLayout等会出现刷新问题
+                        3.在Java代码中，setColorSchemeResources可以设置刷新时的颜色，可以同时设置多种颜色
+                        4.回调函数onRefresh处于子线程，需用Handler抛回主线程，并设置swipeRefreshLayout.setRefreshing(false)结束刷新</p>
+</li>
 </ul>
 
       <footer class="site-footer">
